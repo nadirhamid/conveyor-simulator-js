@@ -1,0 +1,50 @@
+/* CSS code for MVP Talent 
+ * Assessment part 2
+ */
+
+.main-container 
+{
+	width: 500px;
+	margin: 0 auto;	
+}
+
+.main-container .box
+{
+	width: inherit;
+	border: 1px solid #E3E3E3;
+	padding: 10px;
+}
+
+.main-container.multiple
+{
+	width: 100%;
+}
+
+.main-container.multiple .box {
+	width: 28%;
+	float: left;
+	margin-right: 3%;
+	display: inline-block;
+	min-height: 200px;
+	margin-bottom: 5%;
+}
+
+.main-button {
+	margin-top: 20px;
+}
+
+h2 {
+	font-size: 30px;
+}
+
+small {
+	font-size: 12px;
+}
+
+.clear {
+	clear: both;
+}
+
+.pointer [
+	cursor: pointer;
+}

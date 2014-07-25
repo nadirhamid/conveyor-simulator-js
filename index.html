@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<title>Conveyer Machine Part 2 - MVP Talent Assessment</title>
+<link href="./css/ui.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="./css/tables.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="./css/main.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body>
+<div class="main-container">
+	<div class="box">
+		<h2>Conveyer Machine Simulator</h2>
+
+		<small>Current time from the machine: <span id="currentTime"></span></small><br />
+		<small>Elapsed time since last reset (seconds): <span id="elapsedTime"></span></small><br />
+		<small>Elapsed weight moved since last reset: <span id="elapsedWeight"></span></small><br />
+		<small>Current weight being movied in lb/s: <span id="currentWeight"></span></small> <br />
+		<small>String status of the machine: <span id="status"></span></small> <br />
+		<div id="resetButton" class="round-button blue main-button">Reset</div>
+	</div>
+</div>
+<script>
+window.onload = function() {
+	var viewer = ConveyerMachine.viewer.register({'currentTime': document.getElementById('currentTime'),
+						      'currentWeight': document.getElementById('currentWeight'),
+						      'statusMessage': document.getElementById('status'),
+						      'elapsedTimeSinceReset': document.getElementById('elapsedTime'),
+						      'elapsedWeightMovedSinceReset': document.getElementById('elapsedWeight'),
+						      'resetButton': document.getElementById('resetButton')
+						    });
+	var simulator = ConveyerMachine.simulator.register();
+
+	return ConveyerMachine.base.run(viewer, simulator, function(res) {
+		//console.log(res);
+	});
+}
+</script>
+<script src="./js/clone.js"></script>
+<script src="./js/viewer.js"></script>
+<script src="./js/simulator.js"></script>
+<script src="./js/base.js"></script>
+</body>

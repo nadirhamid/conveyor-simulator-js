@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<title>Conveyer Machine Part 2 Unit Tests - MVP Talent Assessment</title>
+<link href="./css/ui.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="./css/tables.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="./css/main.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body>
+<div class="main-container">
+<h2>Unit Tests for Conveyer Machine</h2>
+<table class="dc_tables2_4" cellspacing="0" summary="DT features" style="width:100%;">
+  <tbody id="unitTests"><tr class="odd-row">
+    <th class="first">Description</th>
+    <th class="last">Test # <br />(click to run)</th>
+  </tr>
+  </tbody></table>
+<!-- only for unit test purposes -->
+<div>
+<span id="currentTime"></span>
+<span id="currentWeight"></span>
+<span id="elapsedTimeSinceReset"></span>
+<span id="elapsedWeightMovedSinceReset"></span>
+<span id="resetButton"></span>
+</div>
+<script src="./js/viewer.js"></script>
+<script src="./js/simulator.js"></script>
+<script src="./js/base.js"></script>
+<script src="./js/clone.js"></script>
+<script src="./js/unit.js"></script>
+
+<script>
+(function(win, doc) {
+	var unit_tests = { "one": {
+					"description": "start the conveyer and reset every five seconds <br />ensure properties have changed everytime, do this five times",
+					"func": conveyer_unit_test_01
+				  },
+			   "two": {
+					"description": " start conveyer for 10 seconds<br /> and check if time and weight elapsed has changed each second",
+					"func": conveyer_unit_test_02
+				  },
+			   "three": {
+					"description": "determine state of conveyer every reset<br />for five attempts. result should always be \"RESTARTING\"",
+					"func": conveyer_unit_test_03
+				    },
+			   "four": {
+					"description": "start conveyer, reset every 2 seconds and verify if time elapsed is less than current and resets properly",
+					"func": conveyer_unit_test_04
+				   },
+			   "five": {
+					"description": "start conveyer, verify weight is continous over a <br />certain period of time and does not stall",
+					"func": conveyer_unit_test_05
+				   },
+			   "six": {
+					"description": "add large numbers to the continous weight, make sure the result is cumulative and doesn't break the program",
+					"func": conveyer_unit_test_06
+				  }
+			 };
+
+	var unit_test_box = doc.getElementById('unitTests');
+	var unit_test_count = 1;
+
+	for (var i in unit_tests) {
+		var tr = doc.createElement('tr');
+		var td1 = doc.createElement('td');
+		var td2 = doc.createElement('td');
+
+		td1.setAttribute('class', 'first');
+		td2.setAttribute('class',' last pointer');
+		td2.setAttribute('style', 'cursor: pointer;');
+		td2.setAttribute('data-number', i);
+		
+		td1.innerHTML = unit_tests[i].description;
+		td2.innerHTML = "<h2>" + unit_test_count + "</h2>";
+		td2.onclick = function() {
+			unit_tests[this.getAttribute('data-number')].func(this);
+		};
+
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		unit_test_box.appendChild(tr);
+		unit_test_count++; 
+	}
+
+})(window, document);
+</script>
+</body>

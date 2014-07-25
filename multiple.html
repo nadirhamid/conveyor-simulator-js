@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<title>Conveyer Machine Part 2 - MVP Talent Assessment</title>
+<link href="./css/ui.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="./css/tables.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="./css/main.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body>
+<div class="main-container multiple">
+	<div style="margin-bottom: 20px; " onclick="for (var i in ConveyerViewers) { ConveyerViewers[i].isReset = 1; }" class="round-button blue">Reset All</div> 	
+
+	<div class="clear"></div>
+	<div class="box">
+	</div>
+
+	<div class="box">
+	</div>
+
+	<div class="box">
+	</div>
+
+	<div class="box">
+	</div>
+
+	<div class="box">
+	</div>
+
+	<div class="box">
+	</div>
+
+	<div class="box">
+	</div>
+
+	<div class="box">
+	</div>
+
+	<div class="box">
+	</div>
+
+
+
+</div>
+<script>
+/* load all the given
+ * boxes into conveyer machine
+ * elements. Additionally
+ * addociate each box with its
+ * unique tag
+ */
+window.onload = function() {
+	(function (win, doc) {
+		var boxes = doc.getElementsByClassName('box');
+		scheduledConveyers = [];
+		var factory = {
+				'currentTime': 'Current time from the machine: <br />',
+				'elapsedTime': 'Elapsed time since last reset(seconds): ',
+				'elapsedWeight': 'Elapsed weight moved since last reset: ',
+				'currentWeight': 'Current weight being moved in lb/s: ',
+				'statusMessage': 'String status of the machine: ',
+				'resetButton': {}
+			      };
+		
+		for (var i in boxes) {
+			if (typeof boxes[i] !== 'object')
+				continue;
+
+			var elements = {};
+			var subelement = {};
+			var heading = document.createElement('h2');
+			heading.innerHTML = "Conveyer Machine Simulator #" + i;	
+			boxes[i].appendChild(heading);
+
+			for (var j in factory) {
+				if (j === "resetButton") {
+					elements[j] = document.createElement('div');
+					elements[j].setAttribute('class', 'round-button blue main-button');
+					elements[j].setAttribute('data-uid', i);
+					elements[j].id = j + '_' + i;
+					elements[j].innerHTML = "Reset";
+				} else {
+					elements[j] = document.createElement('small');
+					subelement = document.createElement('span');
+					clear = document.createElement('div');
+					clear.setAttribute('class', 'clear');
+					subelement.id = j + '_' + i;
+
+					elements[j].innerHTML = factory[j];
+					elements[j].appendChild(subelement);
+					elements[j].appendChild(clear);
+				}
+
+				boxes[i].appendChild(elements[j]);
+			}
+
+			var viewer = ConveyerMachine.viewer.registerCopy({'currentTime': document.getElementById('currentTime_' + i),
+								      'currentWeight': document.getElementById('currentWeight_' + i),
+								      'statusMessage': document.getElementById('statusMessage_' + i),
+								      'elapsedTimeSinceReset': document.getElementById('elapsedTime_' + i),
+								      'elapsedWeightMovedSinceReset': document.getElementById('elapsedWeight_' + i),
+								      'resetButton': document.getElementById('resetButton_' + i)
+								    }, i);
+			var simulator = ConveyerMachine.simulator.register();
+			var base = ConveyerMachine.base.register(viewer, simulator);
+			scheduledConveyers.push(base);
+		}
+	
+		ConveyerMachine.scheduler.start(scheduledConveyers, function(res) {
+		}); 	
+		
+	})(window, document);
+}
+</script>
+<script src="./js/clone.js"></script>
+<script src="./js/viewer.js"></script>
+<script src="./js/simulator.js"></script>
+<script src="./js/base.js"></script>
+<script src="./js/scheduler.js"></script>
+</body>
